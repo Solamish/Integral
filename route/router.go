@@ -14,9 +14,18 @@ func Load(router *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	router.Use(middleware.AuthMiddleware())
 	router.Use(middleware.CorsMiddleware())
 
-	QAgroup := router.Group("/QA")
+	QAGroup := router.Group("/QA")
 	{
-		QAgroup.POST("/Integral/checkIn", controller.Sign)
+		IntergralGroup := QAGroup.Group("/Intergral")
+		{
+			IntergralGroup.POST("/checkIn", controller.Sign)
+		}
+
+		UserGroup := QAGroup.Group("/User")
+		{
+			UserGroup.GET("/getScoreStatus",controller.GetBalance)
+		}
+
 	}
 	return router
 }

@@ -46,8 +46,6 @@ func ResetContDays(redId string, now time.Time) {
 		log.Println("fail to reset cont days", err)
 	}
 
-
-
 }
 
 func UpdateContDays(redId string, now time.Time) {
@@ -62,4 +60,12 @@ func UpdateScore(redId string, score int) {
 	if err != nil {
 		log.Println("fail to update score", err)
 	}
+}
+
+func GetScore(redId string) (totalScore int){
+	err := DB.Raw("select score from users where redid = ?",redId).Row().Scan(&totalScore)
+	if err != nil {
+		log.Println("fail to select score")
+	}
+	return totalScore
 }
