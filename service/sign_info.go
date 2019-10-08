@@ -11,6 +11,7 @@ type Data struct {
 
 
 func SignInfo(redId string) (Data){
+	// TODO is_check_today
 	data := Data{}
 	data.Integral = model.GetIntegral(redId)
 	data.CheckInDays  = model.GetContDays(redId)
