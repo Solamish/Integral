@@ -51,6 +51,13 @@ func schoolTime() () {
 
 	weekPattern := "([0-9]+)"
 	weekMatch, _ := regexp.Compile(weekPattern)
+
+
+	// 避免内网外入崩的时候，程序直接退出
+	if len(str) <= 0 {
+		log.Println("array 'str' index out of range")
+		return
+	}
 	// 5
 	week := weekMatch.FindString(str[0])
 

@@ -73,6 +73,6 @@ func Sign(redId string) (int) {
 	}
 
 	score := baseScore + additionalScore
-	model.UpdateScore(redId, score)
+	model.UpdateIntegral(redId, score)
 	return score
 }

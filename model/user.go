@@ -11,8 +11,8 @@ type User struct {
 	NickName     string    `gorm:"column:nickname"`
 	HeadImgUrl   string    `gorm:"column:head_img_url"`
 	LastSignTime time.Time `gorm:"column:last_sign_time"`
-	ContDays     int       `gorm:"column:cont_days"`
-	Score        int       `gorm:"column:score"`
+	CheckInDays  int       `gorm:"column:check_in_days"`
+	Integral     int       `gorm:"column:integral"`
 }
 
 func (user *User) Save() {
@@ -32,40 +32,40 @@ func GetLastSignTime(redId string) (lastSignTime time.Time) {
 }
 
 func GetContDays(redId string) (contDays int) {
-	err := DB.Raw("select cont_days from users where redid = ?", redId).Row().Scan(&contDays)
+	err := DB.Raw("select check_in_days from users where redid = ?", redId).Row().Scan(&contDays)
 	if err != nil {
-		log.Println("fail to get contDays", err)
+		log.Println("fail to get check_in_days", err)
 	}
 	return
 }
 
 func ResetContDays(redId string, now time.Time) {
 	//err := DB.Table("users").Where("redid = ?", redId).Updates(map[string]interface{}{"cont_days": 1, "last_sign_time": now,}).Error
-	err := DB.Exec("UPDATE users SET cont_days = 1, last_sign_time = ?  WHERE redid = ?", now, redId).Error
+	err := DB.Exec("UPDATE users SET check_in_days = 1, last_sign_time = ?  WHERE redid = ?", now, redId).Error
 	if err != nil {
-		log.Println("fail to reset cont days", err)
+		log.Println("fail to reset check_in_days days", err)
 	}
 
 }
 
 func UpdateContDays(redId string, now time.Time) {
-	err := DB.Exec("UPDATE users SET cont_days = cont_days + 1, last_sign_time = ? WHERE redid = ?", now, redId).Error
+	err := DB.Exec("UPDATE users SET check_in_days = check_in_days + 1, last_sign_time = ? WHERE redid = ?", now, redId).Error
 	if err != nil {
-		log.Println("fail to update cont days", err)
+		log.Println("fail to update check_in_days days", err)
 	}
 }
 
-func UpdateScore(redId string, score int) {
-	err := DB.Exec("UPDATE users SET score = score + ? WHERE redid = ?", score, redId).Error
+func UpdateIntegral(redId string, integral int) {
+	err := DB.Exec("UPDATE users SET integral = integral + ? WHERE redid = ?", integral, redId).Error
 	if err != nil {
-		log.Println("fail to update score", err)
+		log.Println("fail to update integral", err)
 	}
 }
 
-func GetScore(redId string) (totalScore int){
-	err := DB.Raw("select score from users where redid = ?",redId).Row().Scan(&totalScore)
+func GetIntegral(redId string) (totalIntegral int) {
+	err := DB.Raw("select integral from users where redid = ?", redId).Row().Scan(&totalIntegral)
 	if err != nil {
-		log.Println("fail to select score")
+		log.Println("fail to select integral")
 	}
-	return totalScore
+	return totalIntegral
 }
