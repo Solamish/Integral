@@ -9,6 +9,10 @@ import (
 	"net/http"
 )
 
+type Data struct {
+	data interface{}
+}
+
 func Sign(c *gin.Context) {
 	//token := c.Request.Header.Get("token")
 	u, ok1 := c.Get("user")
@@ -18,14 +22,19 @@ func Sign(c *gin.Context) {
 		resps.DefinedError(c, resps.ParamError)
 		return
 	}
-	score, signTime, isSigned := service.Sign(user.RedId)
-
-	c.JSON(http.StatusOK, gin.H{
-		"code":10000,
-		"interal": score,
-		"lastSignTime": signTime.Format("2006-01-02 15:04:05"),
-		"isSigned": isSigned,
-	})
+	score := service.Sign(user.RedId)
+	if score == -1 {
+		c.JSON(http.StatusOK, gin.H{
+			"info":   "today had checked in",
+			"status": 403,
+		})
+		return
+	} else if score == -2 {
+		c.JSON(http.StatusOK, gin.H{
+			"info":   "Not within the specified date",
+			"status": 405,
+		})
+		return
+	}
+	resps.DefinedResp(c, resps.Resp)
 }
- 
-

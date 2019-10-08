@@ -5,45 +5,49 @@ import (
 	"net/http"
 )
 
-// RespMsg : http响应数据的通用结构
-type RespMsg struct {
-	Code int         `json:"code"`
-	Msg  string      `json:"msg"`
+
+type ErrorMsg struct {
+	Status int         `json:"status"`
+	Info  string      `json:"info"`
 }
 
-// NewRespMsg : 生成response对象
-func NewRespMsg(code int, msg string, data interface{}) RespMsg {
-	return RespMsg{
-		Code: code,
-		Msg:  msg,
-	}
+// RespMsg : http响应数据的通用结构
+type RespMsg struct {
+	Status int         `json:"status"`
+	Info  string      `json:"info"`
+	Data  interface{} `json:"data"`
 }
+
 
 
 var (
-	ParamError = RespMsg{
-		Code: 10011,
-		Msg:  "param error",
+	ParamError = ErrorMsg{
+		Status: 10011,
+		Info:  "param error",
 
 	}
-	AuthorizedError = RespMsg{
-		Code: 10011,
-		Msg:  "Unauthorized",
+	AuthorizedError = ErrorMsg{
+		Status: 10011,
+		Info:  "Unauthorized",
 
 	}
-	Success = RespMsg{
-		Code: 10000,
-		Msg:  "success",
-
+	Resp = RespMsg{
+		Status: 200,
+		Info:   "success",
+		Data:   nil,
 	}
 )
 
 //	自定义Error
-func DefinedError(c *gin.Context, err RespMsg) {
+func DefinedError(c *gin.Context, err ErrorMsg) {
 	c.JSON(http.StatusOK, err)
 }
 
-func Unauthorized(c *gin.Context, err RespMsg) {
+func DefinedResp(c *gin.Context, resp RespMsg)  {
+	c.JSON(http.StatusOK, resp)
+}
+
+func Unauthorized(c *gin.Context, err ErrorMsg) {
 	c.JSON(http.StatusUnauthorized, err)
 }
 

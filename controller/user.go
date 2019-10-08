@@ -12,9 +12,9 @@ func Enter(c *gin.Context) {
 	user, err := middleware.CheckToken(token)
 
 	if err != nil || &user.RedId == nil{
-		resps.DefinedError(c, resps.RespMsg{
-			Code: 12345,
-			Msg:  err.Error(),
+		resps.DefinedError(c, resps.ErrorMsg{
+			Status: 12345,
+			Info:  err.Error(),
 		})
 		return
 	}

@@ -11,11 +11,11 @@ var (
 	contDays        = 0
 	additionalScore = 0
 	baseScore       = 10
-	isSigned        = false
-	lastSignTime    time.Time
+
+	lastSignTime time.Time
 )
 
-func Sign(redId string) (int, time.Time, bool) {
+func Sign(redId string) (int) {
 
 	now, todayZero, nextZero, preZero := times.GetTimeInfo()
 	lastSignTime = model.GetLastSignTime(redId)
@@ -24,23 +24,22 @@ func Sign(redId string) (int, time.Time, bool) {
 
 	if thisWeek < 0 || thisWeek > 20 {
 		fmt.Println("不在签到日期内")
-		isSigned = true
-		return -2, now, isSigned
-	}
 
+		return -2
+	}
 
 	//上次签到时间在今日零点和次日零点之间
 	if todayZero.Before(lastSignTime) && lastSignTime.Before(nextZero) {
 		// TODO 签到后的处理
 		fmt.Println("签到过了")
-		isSigned = true
-		return -1, lastSignTime, isSigned
+
+		return -1
 	}
 
 	// 如果是周一，签到天数重置
 	if now.Weekday() == time.Monday {
 		model.ResetContDays(redId, now)
-		isSigned = true
+
 		fmt.Println("周一签到")
 	} else {
 		//如果不是周一，且为连续签到
@@ -48,7 +47,7 @@ func Sign(redId string) (int, time.Time, bool) {
 			//连续签到天数+1
 			fmt.Println("连续签到")
 			model.UpdateContDays(redId, now)
-			isSigned = true
+
 			contDays = model.GetContDays(redId)
 
 			switch contDays {
@@ -69,11 +68,11 @@ func Sign(redId string) (int, time.Time, bool) {
 		} else {
 			fmt.Println("第一次签到")
 			model.ResetContDays(redId, now)
-			isSigned = true
+
 		}
 	}
 
 	score := baseScore + additionalScore
 	model.UpdateScore(redId, score)
-	return score, now, isSigned
+	return score
 }
