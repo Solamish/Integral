@@ -19,6 +19,7 @@ func Load(router *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		IntergralGroup := QAGroup.Group("/Intergral")
 		{
 			IntergralGroup.POST("/checkIn", api.Sign)
+			IntergralGroup.POST("/getItemList", api.GetItemList)
 		}
 
 		UserGroup := QAGroup.Group("/User")
