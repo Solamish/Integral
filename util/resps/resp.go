@@ -22,12 +22,12 @@ type RespMsg struct {
 
 var (
 	ParamError = ErrorMsg{
-		Status: 10011,
+		Status: 400,
 		Info:  "param error",
 
 	}
 	AuthorizedError = ErrorMsg{
-		Status: 10011,
+		Status: 403,
 		Info:  "Unauthorized",
 
 	}

@@ -39,7 +39,7 @@ func GetSchoolTime() {
 
 // 从教务在线获取当前教学周
 func schoolTime() () {
-	resp, err := https.SendGet("http://jwzx.cqu.pt/kebiao/index.php")
+	resp, err := https.SendGet("http://jwzx.cqupt.edu.cn/kebiao/index.php")
 	if err != nil {
 		log.Println("https error :", err)
 	}
@@ -53,7 +53,7 @@ func schoolTime() () {
 	weekMatch, _ := regexp.Compile(weekPattern)
 
 
-	// 避免内网外入崩的时候，程序直接退出
+	// 避免请求不到页面时，程序直接退出
 	if len(str) <= 0 {
 		log.Println("array 'str' index out of range")
 		return
