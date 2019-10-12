@@ -20,7 +20,7 @@ func GetRecord(redId string, page, size int) (records []*Record) {
 	if size > 0 {
 		rows, err = DB.Raw("select * from records where redid = ? order by created_at  desc limit ? offset ?", redId, size, (size-1)*page).Rows()
 	} else {
-		rows, err = DB.Raw("select * from records where redid = ? order by created_at  desc limit 6 offset 1", redId).Rows()
+		rows, err = DB.Raw("select * from records where redid = ? order by created_at  desc limit 6 offset 0", redId).Rows()
 	}
 	if err != nil {
 		log.Println("fail to get user's record", err)

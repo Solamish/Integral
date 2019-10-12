@@ -5,7 +5,7 @@ import "mobileSign/model"
 type ItemInfo struct {
 	Name     string `json:"name"`
 	Value    string `json:"value"`
-	Number   int    `json:"number"`
+	Number   int    `json:"num"`
 	PhotoSrc string `json:"photo_src"`
 }
 
