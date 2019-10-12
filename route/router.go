@@ -26,6 +26,7 @@ func Load(router *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		UserGroup := QAGroup.Group("/User")
 		{
 			UserGroup.POST("/getScoreStatus", api.SignInfo)
+			UserGroup.POST("/integralRecords", api.GetRecord)
 		}
 
 	}

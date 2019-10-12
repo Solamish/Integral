@@ -73,6 +73,16 @@ func Sign(redId string) (int) {
 	}
 
 	score := baseScore + additionalScore
+	record := model.Record{
+		RedId:       redId,
+		EventType: 1,
+		Number:      score,
+	}
+
+	// 增加积分
 	model.UpdateIntegral(redId, score)
+
+	// 添加一条积分纪录
+	record.AddRecord()
 	return score
 }
