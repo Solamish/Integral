@@ -78,9 +78,9 @@ func GetIntegral(redId string) (totalIntegral int) {
 }
 
 func GetUserInfo(redId string) (userInfo User) {
-	err := DB.Raw("select * from users where redid = ?", redId).Scan(&userInfo)
+	err := DB.Raw("select * from users where redid = ?", redId).Scan(&userInfo).Error
 	if err != nil {
-		log.Println("fail to get userinfo")
+		log.Println("fail to get userinfo",err)
 	}
 	return
 }

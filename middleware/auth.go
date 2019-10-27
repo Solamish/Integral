@@ -14,6 +14,8 @@ type UserInfo struct {
 	RedID      string `json:"redid"`
 	HeadImgUrl string `json:"headImgUrl"`
 	Nickname   string `json:"nickname"`
+	RealName   string `json:"realName"`
+	StuNum     string `json:"stuNum"`
 }
 
 func AuthMiddleware() gin.HandlerFunc {
@@ -61,9 +63,11 @@ func CheckToken(token string) (user model.User, err error) {
 	u.HeadImgUrl = head + headImgUrlSlice[1]
 
 	user = model.User{
-		RedId:        u.RedID,
-		NickName:     u.Nickname,
-		HeadImgUrl:   u.HeadImgUrl,
+		RedId:      u.RedID,
+		NickName:   u.Nickname,
+		HeadImgUrl: u.HeadImgUrl,
+		Stunum:     u.StuNum,
+		UserName:   u.RealName,
 	}
 
 	return

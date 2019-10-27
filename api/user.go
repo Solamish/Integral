@@ -21,6 +21,7 @@ func Enter(c *gin.Context) {
 		})
 		return
 	}
+	// TODO 要改呀
 	user.LastSignTime = time.Now().Local()
 	user.Save()
 
