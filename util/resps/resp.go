@@ -34,7 +34,7 @@ var (
 	Resp = RespMsg{
 		Status: 200,
 		Info:   "success",
-		Data:   nil,
+		Data:   []string{},
 	}
 )
 

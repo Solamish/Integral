@@ -39,9 +39,5 @@ func AddItem(c *gin.Context) {
 		resps.DefinedError(c, resps.ParamError)
 		return
 	}
-	resps.DefinedResp(c, resps.RespMsg{
-		Status: 200,
-		Info:   "success",
-		Data:   nil,
-	})
+	resps.DefinedResp(c, resps.Resp)
 }

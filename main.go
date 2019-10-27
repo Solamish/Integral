@@ -23,9 +23,9 @@ func main() {
 	defer db.Close()
 
 	go times.GetSchoolTime()
-
 	r := gin.New()
 	route.Load(r)
 	r.Run(":8080")
+
 
 }

@@ -6,13 +6,20 @@ import (
 )
 
 type User struct {
-	ID           int       `gorm:"primary_key"`
-	RedId        string    `gorm:"column:redid"`
-	NickName     string    `gorm:"column:nickname"`
-	HeadImgUrl   string    `gorm:"column:head_img_url"`
-	LastSignTime time.Time `gorm:"column:last_sign_time"`
-	CheckInDays  int       `gorm:"column:check_in_days"`
-	Integral     int       `gorm:"column:integral"`
+	ID                int       `gorm:"primary_key"`
+	RedId             string    `gorm:"column:redid"`
+	NickName          string    `gorm:"column:nickname"`
+	HeadImgUrl        string    `gorm:"column:head_img_url"`
+	LastSignTime      time.Time `gorm:"column:last_sign_time"`
+	CheckInDays       int       `gorm:"column:check_in_days"`
+	Integral          int       `gorm:"column:integral"`
+	Phone             string    `gorm:"column:phone"`
+	Gendor            string    `gorm:"column:gendor"`
+	Stunum            string    `gorm:"column:stunum"`
+	Introduction      string    `gorm:"column:introduction"`
+	QQ                string    `gorm:"column:qq"`
+	UserName          string    `gorm:"column:username"`
+	PhotoThumbnailSrc string    `gorm:"column:photo_thumbnail_src"`   // 缩略图
 }
 
 func (user *User) Save() {
@@ -68,4 +75,12 @@ func GetIntegral(redId string) (totalIntegral int) {
 		log.Println("fail to select integral")
 	}
 	return totalIntegral
+}
+
+func GetUserInfo(redId string) (userInfo User) {
+	err := DB.Raw("select * from users where redid = ?", redId).Scan(&userInfo)
+	if err != nil {
+		log.Println("fail to get userinfo")
+	}
+	return
 }

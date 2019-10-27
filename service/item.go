@@ -1,6 +1,8 @@
 package service
 
-import "mobileSign/model"
+import (
+	"mobileSign/model"
+)
 
 type ItemInfo struct {
 	Name     string `json:"name"`

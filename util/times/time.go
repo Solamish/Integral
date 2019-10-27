@@ -37,6 +37,15 @@ func GetSchoolTime() {
 	}
 }
 
+func B2S(bs []uint8) string {
+	bytes := []byte{}
+	for _, b := range bs {
+		bytes = append(bytes, byte(b))
+	}
+	return string(bytes)
+}
+
+
 // 从教务在线获取当前教学周
 func schoolTime() () {
 	resp, err := https.SendGet("http://jwzx.cqupt.edu.cn/kebiao/index.php")
@@ -63,14 +72,5 @@ func schoolTime() () {
 
 	thisWeek, _ = strconv.Atoi(week)
 
-}
-
-
-func B2S(bs []uint8) string {
-	bytes := []byte{}
-	for _, b := range bs {
-		bytes = append(bytes, byte(b))
-	}
-	return string(bytes)
 }
 
