@@ -11,7 +11,7 @@ type User struct {
 	UserName          string `json:"username"`
 	NickName          string `json:"nickname"`
 	CheckInDays       int    `json:"check_in_days"`
-	HeadImgUrl        string `json:"photo_src"`
+	PhotoSrc          string `json:"photo_src"`
 	PhotoThumbnailSrc string `json:"photo_thumbnail_src"` // 缩略图
 	Integral          int    `json:"integral"`
 	Phone             string `json:"phone"`
@@ -20,13 +20,13 @@ type User struct {
 	QQ                string `json:"qq"`
 }
 
-func UserInfo(redId string) (User){
-	user := model.GetUserInfo(redId)
+func UserInfo(stuNum string) (User) {
+	user := model.GetUserInfo(stuNum)
 	userInfo := User{
 		ID:                user.ID,
 		RedId:             user.RedId,
 		NickName:          user.NickName,
-		HeadImgUrl:        user.HeadImgUrl,
+		PhotoSrc:          user.PhotoSrc,
 		CheckInDays:       user.CheckInDays,
 		Integral:          user.Integral,
 		Phone:             user.Phone,

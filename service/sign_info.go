@@ -12,13 +12,13 @@ type Data struct {
 }
 
 
-func SignInfo(redId string) (Data){
+func SignInfo(stuNum string) (Data){
 	// TODO is_check_today
 	data := Data{}
-	data.Integral = model.GetIntegral(redId)
-	data.CheckInDays  = model.GetContDays(redId)
+	data.Integral = model.GetIntegral(stuNum)
+	data.CheckInDays  = model.GetContDays(stuNum)
 
-	lastSignTime := model.GetLastSignTime(redId)
+	lastSignTime := model.GetLastSignTime(stuNum)
 	now,_ ,_ ,_ := times.GetTimeInfo()
 	lastSignTimeStr := lastSignTime.Format("2006-01-02")
 	nowStr := now.Format("2006-01-02")

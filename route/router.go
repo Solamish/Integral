@@ -19,15 +19,15 @@ func Load(router *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		IntergralGroup := QAGroup.Group("/Intergral")
 		{
-			IntergralGroup.POST("/checkIn", api.Sign)
-			IntergralGroup.POST("/getItemList", api.GetItemList)
-			IntergralGroup.POST("/addItem", api.AddItem)
+			IntergralGroup.POST("/checkIn", api.Sign)   // 签到
+			IntergralGroup.POST("/getItemList", api.GetItemList)  // 获取商品
+			IntergralGroup.POST("/addItem", api.AddItem)	// 添加商品
 		}
 
 		UserGroup := QAGroup.Group("/User")
 		{
-			UserGroup.POST("/getScoreStatus", api.SignInfo)
-			UserGroup.POST("/integralRecords", api.GetRecord)
+			UserGroup.POST("/getScoreStatus", api.SignInfo)   // 签到信息
+			UserGroup.POST("/integralRecords", api.GetRecord)	// 积分使用记录
 		}
 
 	}
@@ -37,7 +37,7 @@ func Load(router *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		PersonGroup := HomeGroup.Group("/Person")
 		{
-			PersonGroup.POST("/search", api.UserInfo)
+			PersonGroup.POST("/search", api.UserInfo)   // 获取个人信息
 		}
 	}
 	return router

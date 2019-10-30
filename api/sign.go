@@ -22,7 +22,7 @@ func Sign(c *gin.Context) {
 		resps.DefinedError(c, resps.ParamError)
 		return
 	}
-	score := service.Sign(user.RedId)
+	score := service.Sign(user.Stunum)
 	if score == -1 {
 		c.JSON(http.StatusOK, gin.H{
 			"info":   "today had checked in",

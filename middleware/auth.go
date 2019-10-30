@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"mobileSign/model"
 	"mobileSign/util/resps"
+	"mobileSign/util/signs"
 	"strings"
 )
 
@@ -18,6 +19,27 @@ type UserInfo struct {
 	StuNum     string `json:"stuNum"`
 }
 
+// idnum和stunum鉴权
+func OldAuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		stuNum := c.PostForm("stunum")
+		idNum := c.PostForm("idnum")
+		if stuNum == "" || idNum == "" {
+			resps.DefinedError(c, resps.AuthorizedError)
+			c.Abort()
+			return
+		}
+		if !signs.Verify(stuNum, idNum) {
+			resps.DefinedError(c, resps.AuthorizedError)
+			c.Abort()
+			return
+		}
+		c.Set("stuNum", stuNum)
+		c.Next()
+	}
+}
+
+// magicloop鉴权
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 

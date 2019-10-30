@@ -16,7 +16,7 @@ func SignInfo(c *gin.Context) {
 		resps.DefinedError(c, resps.ParamError)
 		return
 	}
-	data := service.SignInfo(user.RedId)
+	data := service.SignInfo(user.Stunum)
 	resps.DefinedResp(c, resps.RespMsg{
 		Status: 200,
 		Info:   "success",

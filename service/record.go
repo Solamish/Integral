@@ -10,9 +10,10 @@ type Record struct {
 	CreatedAt string `json:"created_at"`
 }
 
-func GetRecord(redId string, page int, size int) (records []*Record) {
+// 积分使用记录
+func GetRecord(stuNum string, page int, size int) (records []*Record) {
 	var eventType string
-	r := model.GetRecord(redId, page, size)
+	r := model.GetRecord(stuNum, page, size)
 
 	for i, _ := range r {
 
@@ -21,6 +22,8 @@ func GetRecord(redId string, page int, size int) (records []*Record) {
 			eventType = "签到"
 		case 2:
 			eventType = "提问"
+		case 3:
+			eventType = "采纳"
 		default:
 			eventType = "其他"
 		}

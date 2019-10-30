@@ -21,7 +21,7 @@ func GetRecord(c *gin.Context) {
 		resps.DefinedError(c, resps.ParamError)
 		return
 	}
-	records := service.GetRecord(user.RedId, page, size)
+	records := service.GetRecord(user.Stunum, page, size)
 	resps.DefinedResp(c, resps.RespMsg{
 		Status: 200,
 		Info:   "success",

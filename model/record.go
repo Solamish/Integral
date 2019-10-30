@@ -9,18 +9,20 @@ import (
 type Record struct {
 	ID        int    `gorm:"primary_key"`
 	RedId     string `gorm:"column:redid"`
-	EventType int    `gorm:"column:event_type"` // type为1 表示签到;   type为2 表示提问; default: 其他
+	StuNum    string `gorm:"column:stu_num"`
+	EventType int    `gorm:"column:event_type"` // type为1 表示签到;  type为2 表示提问; type为3 表示采纳; default: 其他
 	Number    int    `gorm:"column:number"`
 	CreatedAt time.Time
 }
 
-func GetRecord(redId string, page, size int) (records []*Record) {
+// 查询积分
+func GetRecord(stuNum string, page, size int) (records []*Record) {
 	var err error
 	var rows *sql.Rows
 	if size > 0 {
-		rows, err = DB.Raw("select * from records where redid = ? order by created_at  desc limit ? offset ?", redId, size, (size-1)*page).Rows()
+		rows, err = DB.Raw("select * from records where stu_num = ? order by created_at  desc limit ? offset ?", stuNum, size, (size-1)*page).Rows()
 	} else {
-		rows, err = DB.Raw("select * from records where redid = ? order by created_at  desc limit 6 offset 0", redId).Rows()
+		rows, err = DB.Raw("select * from records where stu_num = ? order by created_at  desc limit 6 offset 0", stuNum).Rows()
 	}
 	if err != nil {
 		log.Println("fail to get user's record", err)
@@ -38,6 +40,7 @@ func GetRecord(redId string, page, size int) (records []*Record) {
 	return
 }
 
+// 添加一条积分记录
 func (record *Record) AddRecord() {
 	err := DB.Create(record).Error
 	if err != nil {
